@@ -53,21 +53,43 @@ def fluxes_HZ(stelzer_com, stelzer_upl, nemec_data, bound_ind):
 	fill_nemec_plot(ax_nemco, nemec_data, f"{bound_ind}_out")
 	
 	# Finishing touches
-	finish_plots(ax, fig)
+	finish_2x2_plots(ax, fig)
 	
 	# Save the plot
-	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ.png", dpi=300)
+	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ.jpg", dpi=300)
 	plt.close()
 
 
-def finish_plots(axes_list, figure_pointer):
+def fluxes_HZ_reduced(stelzer_com, stelzer_upl, nemec_data, bound_ind):
+	"""DOC"""
+	# GENERAL FIGURE SETUP
+	fig, ax = plt.subplots(2, 1, figsize=(5, 7),
+	                       sharex=True, sharey=True)
+	
+	# Title for whole figure, might not be necessary
+	# fig.suptitle("Incident XUV-fluxes for conservative habitable zone")
+	
+	# Upper left plot: Conservative Inner boundary, linear scaling
+	ax_linci = ax[0]
+	fill_stelzer_plot(ax_linci, stelzer_com, stelzer_upl, f"{bound_ind}_in")
+	
+	# Lower left plot: Conservative Inner boundary, Calculated scaling
+	ax_nemci = ax[1]
+	fill_nemec_plot(ax_nemci, nemec_data, f"{bound_ind}_in")
+	
+	# Finishing touches
+	finish_1x2_plots(ax, fig)
+	
+	# Save the plot
+	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ_reduced.jpg", dpi=300)
+	plt.close()
+
+
+def finish_2x2_plots(axes_list, figure_pointer):
 	"""To finish and clean up the plots"""
 	# Common axes labels
-	figure_pointer.text(0.5, 0.04, 'L$_{XUV}$ [erg/s]',
-	                    ha='center', va='center', fontsize="large")
-	figure_pointer.text(0.06, 0.5, 'f$_{XUV}$ [f$_{XUV, Earth}$]',
-	                    ha='center', va='center', fontsize="large",
-	                    rotation='vertical')
+	figure_pointer.supxlabel('L$_{XUV}$ [erg s$^{-1}]$')
+	figure_pointer.supylabel('f$_{XUV}$ [f$_{XUV, Earth}$]')
 	
 	for ax_row in axes_list:
 		for axis in ax_row:
@@ -79,7 +101,25 @@ def finish_plots(axes_list, figure_pointer):
 	subplot_tick_adjustment(axes_list)
 	
 	# Space out subplots
-	plt.subplots_adjust(wspace=0.02, hspace=0.02)
+	plt.tight_layout()
+
+
+def finish_1x2_plots(axes_list, figure_pointer):
+	"""To finish and clean up the plots"""
+	# Common axes labels
+	figure_pointer.supylabel('f$_{XUV}$ [f$_{XUV, Earth}$]')
+	axes_list[1].set(xlabel='L$_{XUV}$ [erg s$^{-1}]$')
+	
+	for axis in axes_list:
+		# Plot the fXUV = 1 and fXUV = 20 marker in all plots
+		axes_XUV_indicators(axis)
+		axis.grid(alpha=0.5)
+	
+	# Adjust tick visibility for subplots
+	plt.setp(axes_list[0].get_xticklabels(), visible=False)
+	
+	# Space out subplots
+	plt.tight_layout()
 
 
 def axes_XUV_indicators(axis):

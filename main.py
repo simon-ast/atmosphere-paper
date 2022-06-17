@@ -1,6 +1,4 @@
 import sys
-import numpy as np
-import matplotlib.pyplot as plt
 import copy
 from MODULES import file_handling as fh
 from MODULES import plotting
@@ -31,6 +29,8 @@ def main():
 	plotting.fluxes_HZ(stelzer_FLL, stelzer_UPL, nemec_FLL, "con")
 	# 2 x 2 optimistic boundary plots
 	plotting.fluxes_HZ(stelzer_FLL, stelzer_UPL, nemec_FLL, "opt")
+	# DOC
+	plotting.fluxes_HZ_reduced(stelzer_FLL, stelzer_UPL, nemec_FLL, "con")
 	# DOC
 	plotting.flux_lum_comparison(nemec_FLL)
 	
