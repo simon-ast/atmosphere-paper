@@ -11,7 +11,7 @@ RSOL_CM = c.R_sun.cgs.value
 
 
 class DataSetStelzer:
-	"""DOC"""
+	"""Read in data set from Stelzer et al. (2013)"""
 	def __init__(self, filename):
 		# First instantiate data array
 		assigned_data = assign_data_stelzer(filename)
@@ -38,7 +38,7 @@ class DataSetStelzer:
 		self.radius = None
 	
 	def slice_dataset(self, case_ident):
-		"""DOC"""
+		"""Split data set into upper limits and full"""
 		full_index_array = np.arange(len(self.id))
 		
 		# For explanation, see comment below
