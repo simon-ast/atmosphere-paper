@@ -73,7 +73,9 @@ def flux_to_luminosity(distance: np.ndarray,
 
 
 def perc_below_XUV(input_array, limit):
-	"""DOC"""
+	"""
+	Simple calculation of input array fraction below some limiting value
+	"""
 	total = len(input_array)
 	number = np.where(input_array <= limit)
 	

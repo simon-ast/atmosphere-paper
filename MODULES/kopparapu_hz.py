@@ -22,7 +22,7 @@ class KopparapuHZs:
 
 
 class HZincidenXUVflux:
-	"""DOC"""
+	"""Converts XUV luminosity and distance to incident flux"""
 	def __init__(self, l_xuv, HZclass) -> None:
 		self.opt_in = relative_incident_flux(l_xuv, HZclass.opt_in)
 		self.con_in = relative_incident_flux(l_xuv, HZclass.con_in)
@@ -52,11 +52,12 @@ def habitable_zone_distance(T_eff, L, est_ident):
 		f"INDICATOR {est_ident} FOR ESTIMATION METHOD NOT RECOGNIZED!"
 	
 	# Parameter matrix organized by oi, ci, co, oo estimates
+	# PLEASE NOTE THE ERRATUM TO THE ORIGINAL KOPPARAPU (2013) PAPER!
 	param = np.array([
-		[2.136e-4, 2.533e-8, -1.332e-11, -3.097e-15],
-		[1.332e-4, 1.580e-8, -8.308e-12, -1.931e-15],
-		[6.171e-5, 1.698e-9, -3.198e-12, -5.575e-16],
-		[5.547e-5, 1.526e-9, -2.874e-12, -5.011e-16],
+		[1.4335e-4, 3.3954e-9, -7.6364e-12, -1.1950e-15],
+		[1.2456e-4, 1.4612e-8, -7.6345e-12, -1.7511e-15],
+		[5.9578e-5, 1.6707e-9, -3.0058e-12, -5.1925e-16],
+		[5.4471e-5, 1.5275e-9, -2.1709e-12, -3.8282e-16],
 	])
 	
 	# Set correct param-subindex according to est_ident
@@ -73,7 +74,7 @@ def habitable_zone_distance(T_eff, L, est_ident):
 	
 def effective_flux(param_list, T_eff, estimation_index):
 	"""Intermediate step in HZ calculation"""
-	S_effsun = [1.776, 1.107, 0.356, 0.32]
+	S_effsun = [1.7763, 1.0385, 0.3507, 0.3207]
 	
 	# Temperature array consisting of powers 1 to 4
 	temp = np.array(
