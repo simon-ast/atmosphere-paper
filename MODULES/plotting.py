@@ -56,7 +56,7 @@ def fluxes_HZ(stelzer_com, stelzer_upl, nemec_data, bound_ind):
 	finish_2x2_plots(ax, fig)
 	
 	# Save the plot
-	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ.jpg", dpi=300)
+	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ.eps")
 	plt.close()
 
 
@@ -81,7 +81,7 @@ def fluxes_HZ_reduced(stelzer_com, stelzer_upl, nemec_data, bound_ind):
 	finish_1x2_plots(ax, fig)
 	
 	# Save the plot
-	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ_reduced.jpg", dpi=300)
+	plt.savefig(f"{PLOT_SAVE_DIR}/fluxes_{bound_ind}HZ_reduced.eps")
 	plt.close()
 
 
@@ -95,7 +95,7 @@ def finish_2x2_plots(axes_list, figure_pointer):
 		for axis in ax_row:
 			# Plot the fXUV = 1 and fXUV = 20 marker in all plots
 			axes_XUV_indicators(axis)
-			axis.grid(alpha=0.5)
+			axis.grid(color="lightgrey")
 	
 	# Adjust tick visibility for subplots
 	subplot_tick_adjustment(axes_list)
@@ -113,7 +113,7 @@ def finish_1x2_plots(axes_list, figure_pointer):
 	for axis in axes_list:
 		# Plot the fXUV = 1 and fXUV = 20 marker in all plots
 		axes_XUV_indicators(axis)
-		axis.grid(alpha=0.5)
+		axis.grid(color="lightgrey")
 	
 	# Adjust tick visibility for subplots
 	plt.setp(axes_list[0].get_xticklabels(), visible=False)
@@ -187,7 +187,7 @@ def flux_lum_comparison(data_set):
 	ax[0].loglog(data_set.Fx, data_set.Feuv, "o", c="grey", mec="black")
 	ax[0].set(xlabel="F$_X$ [erg cm$^{-2}$ s$^{-1}$]",
 	          ylabel="F$_{EUV}$ [erg cm$^{-2}$ s$^{-1}$]")
-	ax[0].grid(alpha=0.5)
+	ax[0].grid(color="lightgrey", zorder=0)
 	
 	# DESCR
 	ax[1].loglog(data_set.Lx, data_set.Leuv, "o", c="red", zorder=2,
@@ -201,8 +201,8 @@ def flux_lum_comparison(data_set):
 	
 	ax[1].set(xlabel="L$_X$ [erg s$^{-1}$]", xlim=(1e26, 1e30),
 	          ylabel="L$_{EUV}$ [erg s$^{-1}$]")
-	ax[1].grid(alpha=0.5)
+	ax[1].grid(color="lightgrey", zorder=0)
 	
 	plt.subplots_adjust(wspace=0.53, hspace=0)
 	plt.tight_layout()
-	plt.savefig(f"{PLOT_SAVE_DIR}/sFLUX_LUM_comp.png", dpi=300)
+	plt.savefig(f"{PLOT_SAVE_DIR}/sFLUX_LUM_comp.eps")

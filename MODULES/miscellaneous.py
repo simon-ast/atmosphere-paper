@@ -51,7 +51,7 @@ def radius_star(log_fbol: np.ndarray,
 	"""
 	# See equation in doc-string, in units of [m]
 	r_star = (10 ** log_fbol * 1e-3) / (SIGMA_SB * T_eff ** 4) * \
-	         distance * PARSEC
+	          distance * PARSEC
 
 	return r_star / R_SUN
 
@@ -70,3 +70,12 @@ def flux_to_luminosity(distance: np.ndarray,
 	"""
 	
 	return 4 * np.pi * (distance * c.pc.to(u.cm).value) ** 2 * 10 ** log_flux
+
+
+def perc_below_XUV(input_array, limit):
+	"""DOC"""
+	total = len(input_array)
+	number = np.where(input_array <= limit)
+	
+	return len(number[0]) / total * 100
+	

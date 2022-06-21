@@ -14,7 +14,7 @@ class DataSetStelzer:
 	"""DOC"""
 	def __init__(self, filename):
 		# First instantiate data array
-		assigned_data = assign_data(filename)
+		assigned_data = assign_data_stelzer(filename)
 		
 		# ASSIGN DATA TO IDENTIFIERS
 		self.id = assigned_data[:, 0]
@@ -81,16 +81,14 @@ def read_data(filename, separator):
 	with open(filename, "r") as f:
 		data = [line.split(separator) for line in f]
 	
-	# Cut the first 4 lines (header)
-	data = np.array(data[4:])
-	
 	return data
 
 
-def assign_data(filename):
+def assign_data_stelzer(filename):
 	"""DOC"""
-	# Create raw data array
-	raw_data = read_data(filename, "\t")
+	# Create raw data array and cut header
+	raw_data_header = read_data(filename, "\t")
+	raw_data = np.array(raw_data_header[4:])
 	
 	# CONVERT NECESSARY STRINGS TO FLOATS
 	for i in range(len(raw_data)):
@@ -113,7 +111,7 @@ def assign_data(filename):
 	return raw_data
 		
 
-class DatSetNemec:
+class DataSetNemec:
 	"""DOC"""
 	def __init__(self, filename):
 		# First instantiate data array
@@ -183,10 +181,8 @@ class DatSetNemec:
 def assign_data_nemec(filename):
 	"""DOC"""
 	# File entries are separated by 4 whitespaces
-	raw_data = read_data(filename, "    ")
-	
-	# Cut first array entry (header)
-	raw_data = raw_data[1:]
+	raw_data_header = read_data(filename, "    ")
+	raw_data = np.array(raw_data_header[1:])
 	
 	return raw_data
 
