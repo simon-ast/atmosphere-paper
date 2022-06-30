@@ -88,14 +88,16 @@ def fluxes_HZ_reduced(stelzer_com, stelzer_upl, nemec_data, bound_ind):
 def finish_2x2_plots(axes_list, figure_pointer):
 	"""To finish and clean up the plots"""
 	# Common axes labels
-	figure_pointer.supxlabel('L$_{XUV}$ [erg s$^{-1}]$')
-	figure_pointer.supylabel('f$_{XUV}$ [f$_{XUV, Earth}$]')
+	figure_pointer.supxlabel('L$_{XUV}$ [erg s$^{-1}]$',
+	                         fontsize="xx-large")
+	figure_pointer.supylabel('f$_{XUV}$ [f$_{XUV, Earth}$]',
+	                         fontsize="xx-large")
 	
 	for ax_row in axes_list:
 		for axis in ax_row:
 			# Plot the fXUV = 1 and fXUV = 20 marker in all plots
-			axes_XUV_indicators(axis)
 			axis.grid(color="lightgrey")
+			axes_XUV_indicators(axis)
 	
 	# Adjust tick visibility for subplots
 	subplot_tick_adjustment(axes_list)
@@ -128,10 +130,14 @@ def axes_XUV_indicators(axis):
 	Draws dashed lines at 1 and 20 times f_XUV levels with text in all
 	subplots.
 	"""
-	axis.axhline(y=20, c="grey", linestyle="--", zorder=1)
-	axis.text(x=1e30, y=20 + 0.15 * 22, s="20", c="grey")
-	axis.axhline(y=1, c="grey", linestyle="--", zorder=1)
-	axis.text(x=1e30, y=1 + 0.15 * 2, s="1", c="grey")
+	axis.axhline(y=20, c="grey", linestyle="--", zorder=3)
+	axis.text(x=1e30, y=20 + 0.15 * 22,
+	          fontsize="xx-large",
+	          s="20", c="grey", zorder=3)
+	axis.axhline(y=1, c="grey", linestyle="--", zorder=3)
+	axis.text(x=1e30, y=1 + 0.15 * 2,
+	          fontsize="xx-large",
+	          s="1", c="grey", zorder=3)
 
 
 def subplot_tick_adjustment(axes_list):
@@ -157,8 +163,10 @@ def fill_stelzer_plot(axis, data_set_f, data_set_u, hz_key):
 	"""DOC"""
 	# "Complete" data as scatter plot
 	axis.loglog(data_set_f.Lxuv,
-	            getattr(data_set_f.incFXUV, hz_key), "o",
-	            c="green", markersize=3, mec="black", zorder=3)
+	            getattr(data_set_f.incFXUV, hz_key),
+	            "o", markersize=4,
+	            c="forestgreen", mec="darkgreen",
+	            zorder=4)
 	
 	# "Upper limit only" as scatter with arrow downwards
 	error = [getattr(data_set_u.incFXUV, hz_key) / 2,
@@ -166,8 +174,10 @@ def fill_stelzer_plot(axis, data_set_f, data_set_u, hz_key):
 	
 	axis.errorbar(data_set_u.Lxuv,
 	              getattr(data_set_u.incFXUV, hz_key),
-	              yerr=error, fmt="o", markersize=3, mec="black",
-	              uplims=True, c="red", capsize=2.0, zorder=4)
+	              yerr=error,
+	              fmt="o", markersize=4, capsize=2.0,
+	              c="red", mec="darkred",
+	              uplims=True, zorder=5)
 
 
 def fill_nemec_plot(axis, data_set, hz_key):
@@ -175,29 +185,37 @@ def fill_nemec_plot(axis, data_set, hz_key):
 	# Sample with XUV flux from Nina as scatter plot
 	axis.loglog(data_set.Lxuv,
 	            getattr(data_set.incFXUV, hz_key),
-	            "o", c="black", markersize=3)
+	            "o", markersize=4,
+	            c="black", mec="black",
+	            zorder=4)
 
 
 def flux_lum_comparison(data_set):
 	"""DOC"""
 	# GENERAL FIGURE SETUP
-	fig, ax = plt.subplots(2, 1, figsize=(10, 7))
+	fig, ax = plt.subplots(2, 1, figsize=(5, 9))
 	
 	# DESCR
-	ax[0].loglog(data_set.Fx, data_set.Feuv, "o", c="grey", mec="black")
+	ax[0].loglog(data_set.Fx,
+	             data_set.Feuv,
+	             "o", markersize=6,
+	             c="grey", mec="black",
+	             zorder=4)
 	ax[0].set(xlabel="F$_X$ [erg cm$^{-2}$ s$^{-1}$]",
 	          ylabel="F$_{EUV}$ [erg cm$^{-2}$ s$^{-1}$]")
 	ax[0].grid(color="lightgrey", zorder=0)
 	
 	# DESCR
-	ax[1].loglog(data_set.Lx, data_set.Leuv, "o", c="red", zorder=2,
-	             mec="black")
-	ax[1].plot([1e26, 1e30], [1e26, 1e30], c="grey", linestyle="--", zorder=1)
+	ax[1].loglog(data_set.Lx, data_set.Leuv,
+	             "o", markersize=6,
+	             c="red", mec="black",
+	             zorder=4)
+	ax[1].plot([1e26, 1e30], [1e26, 1e30], c="grey", linestyle="--", zorder=3)
 	
-	ax[1].text(x=1e27, y=1e29, s="L$_X$ < L$_{EUV}$", c="grey",
-	           fontsize="large")
-	ax[1].text(x=1e29, y=1e27, s="L$_X$ > L$_{EUV}$", c="grey",
-	           fontsize="large")
+	ax[1].text(x=3e26, y=2e29, s="L$_X$ < L$_{EUV}$", c="grey",
+	           fontsize="xx-large", zorder=3)
+	ax[1].text(x=3e28, y=2e26, s="L$_X$ > L$_{EUV}$", c="grey",
+	           fontsize="xx-large", zorder=3)
 	
 	ax[1].set(xlabel="L$_X$ [erg s$^{-1}$]", xlim=(1e26, 1e30),
 	          ylabel="L$_{EUV}$ [erg s$^{-1}$]")

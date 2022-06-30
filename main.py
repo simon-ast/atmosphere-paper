@@ -27,6 +27,9 @@ def main():
 	nemec_FLL = fh.DataSetNemec(DATA_FILE_NE)
 	nemec_FLL.fill_data(stelzer_ALL)
 	
+	misc.total_sample_eval(nemec_FLL, stelzer_FLL, stelzer_UPL)
+	exit()
+	
 	# CALL ON PLOTTING ROUTINES
 	# 2 x 2 conservative boundary plots
 	plotting.fluxes_HZ(stelzer_FLL, stelzer_UPL, nemec_FLL, "con")

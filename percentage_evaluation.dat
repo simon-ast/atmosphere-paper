@@ -1,0 +1,90 @@
+NEMEC SAMPLE SIZE = 79
+REMAINING STELZER SAMPLE SIZE = 79
+STELZER UPL SAMPLE SIZE = 70
+TOTAL SAMPLE = 159
+
+
+BELOW LIMIT = 1 fXUV_E
+
+Optimistic inner edge:
+NEMEC:	 0 of 79 STARS
+RS_FLL:	 0 of 10 STARS
+S_UPL:	 0 of 70 STARS
+COMBINED PERCENTAGE of 0 out of 159 STARS:	 0.00 %
+
+Conservative inner edge:
+NEMEC:	 0 of 79 STARS
+RS_FLL:	 0 of 10 STARS
+S_UPL:	 0 of 70 STARS
+COMBINED PERCENTAGE of 0 out of 159 STARS:	 0.00 %
+
+Conservative outer edge:
+NEMEC:	 0 of 79 STARS
+RS_FLL:	 1 of 10 STARS
+S_UPL:	 2 of 70 STARS
+COMBINED PERCENTAGE of 3 out of 159 STARS:	 1.89 %
+
+Optimistic outer edge:
+NEMEC:	 0 of 79 STARS
+RS_FLL:	 1 of 10 STARS
+S_UPL:	 2 of 70 STARS
+COMBINED PERCENTAGE of 3 out of 159 STARS:	 1.89 %
+
+
+
+BELOW LIMIT = 10 fXUV_E
+
+Optimistic inner edge:
+NEMEC:	 0 of 79 STARS
+RS_FLL:	 1 of 10 STARS
+S_UPL:	 4 of 70 STARS
+COMBINED PERCENTAGE of 5 out of 159 STARS:	 3.14 %
+
+Conservative inner edge:
+NEMEC:	 6 of 79 STARS
+RS_FLL:	 4 of 10 STARS
+S_UPL:	 7 of 70 STARS
+COMBINED PERCENTAGE of 17 out of 159 STARS:	 10.69 %
+
+Conservative outer edge:
+NEMEC:	 25 of 79 STARS
+RS_FLL:	 9 of 10 STARS
+S_UPL:	 26 of 70 STARS
+COMBINED PERCENTAGE of 60 out of 159 STARS:	 37.74 %
+
+Optimistic outer edge:
+NEMEC:	 26 of 79 STARS
+RS_FLL:	 10 of 10 STARS
+S_UPL:	 26 of 70 STARS
+COMBINED PERCENTAGE of 62 out of 159 STARS:	 38.99 %
+
+
+
+BELOW LIMIT = 20 fXUV_E
+
+Optimistic inner edge:
+NEMEC:	 8 of 79 STARS
+RS_FLL:	 4 of 10 STARS
+S_UPL:	 9 of 70 STARS
+COMBINED PERCENTAGE of 21 out of 159 STARS:	 13.21 %
+
+Conservative inner edge:
+NEMEC:	 14 of 79 STARS
+RS_FLL:	 7 of 10 STARS
+S_UPL:	 15 of 70 STARS
+COMBINED PERCENTAGE of 36 out of 159 STARS:	 22.64 %
+
+Conservative outer edge:
+NEMEC:	 41 of 79 STARS
+RS_FLL:	 10 of 10 STARS
+S_UPL:	 34 of 70 STARS
+COMBINED PERCENTAGE of 85 out of 159 STARS:	 53.46 %
+
+Optimistic outer edge:
+NEMEC:	 41 of 79 STARS
+RS_FLL:	 10 of 10 STARS
+S_UPL:	 38 of 70 STARS
+COMBINED PERCENTAGE of 89 out of 159 STARS:	 55.97 %
+
+
+

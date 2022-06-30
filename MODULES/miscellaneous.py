@@ -1,6 +1,7 @@
 import numpy as np
 import astropy.constants as c
 import astropy.units as u
+from . import file_handling as fh
 
 # GLOBAL CONSTANTS
 SIGMA_SB = c.sigma_sb.value
@@ -80,4 +81,67 @@ def perc_below_XUV(input_array, limit):
 	number = np.where(input_array <= limit)
 	
 	return len(number[0]) / total * 100
+
+
+def total_sample_eval(data_nemec, data_stel_full, data_stel_upl):
+	"""DOC"""
+	# We know that the Nemec sample is a reduced form of the Stelzer_FLL
+	# sample and does not contain stars from the Stelzer_UPL sample. We
+	# therefore want to find an index list of stars NOT in the Nemec
+	# sample
+	# STELZER-NEMEC OVERLAPPING INDICES
+	sui = fh.find_index_comparison(data_stel_full.id, data_nemec.id)
+	
+	# PRINT A SANITY CHECK FOR SAMPLE SIZE
+	print(f"NEMEC SAMPLE SIZE = {len(data_nemec.id)}\n"
+	      f"REMAINING STELZER SAMPLE SIZE = {len(sui)}\n"
+	      f"STELZER UPL SAMPLE SIZE = {len(data_stel_upl.id)}\n"
+	      f"TOTAL SAMPLE = "
+	      f"{len(data_stel_full.id) + len(data_stel_upl.id)}\n\n")
+	
+	for limit in [1, 10, 20]:
+		print(f"BELOW LIMIT = {limit} fXUV_E\n")
+		write_compiled_limits(limit, data_nemec, data_stel_full, sui,
+		                      data_stel_upl)
+		print("\n")
+
+
+def write_compiled_limits(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl):
+	"""DOC"""
+	print("Optimistic inner edge:")
+	print_sample_eval(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl,
+	                  "opt_in")
+	
+	print("Conservative inner edge:")
+	print_sample_eval(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl,
+	                  "con_in")
+	
+	print("Conservative outer edge:")
+	print_sample_eval(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl,
+	                  "con_out")
+	
+	print("Optimistic outer edge:")
+	print_sample_eval(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl,
+	                  "opt_out")
+
+
+def print_sample_eval(limit, nemec, stelzer_fll, stelzer_ui, stelzer_upl, ind):
+	"""DOC"""
+	nemec_flux = getattr(nemec.incFXUV, ind)
+	stel_fll_red = array_reduction(
+		getattr(stelzer_fll.incFXUV, ind), stelzer_ui)
+	stel_upl = getattr(stelzer_upl.incFXUV, ind)
+	
+	nem_num = len(np.where(nemec_flux <= limit)[0])
+	rs_fll_num = len(np.where(stel_fll_red <= limit)[0])
+	s_upl_num = len(np.where(stel_upl <= limit)[0])
+	combined_num = nem_num + rs_fll_num + s_upl_num
+	total_sample_size = len(nemec_flux) + len(stel_fll_red) + len(stel_upl)
+	
+	print(f"NEMEC:\t {nem_num} of {len(nemec_flux)} STARS")
+	print(f"RS_FLL:\t {rs_fll_num} of {len(stel_fll_red)} STARS")
+	print(f"S_UPL:\t {s_upl_num} of {len(stel_upl)} STARS")
+	print(f"COMBINED PERCENTAGE of {combined_num} "
+	      f"out of {total_sample_size} STARS:\t "
+	      f"{combined_num / total_sample_size * 100:.2f} %\n")
 	
